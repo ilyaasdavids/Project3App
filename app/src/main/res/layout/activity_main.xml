@@ -6,14 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="231dp"
+        android:text="Date:"
+        android:textSize="30dp" />
+
     <Button
         android:id="@+id/buttonBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="124dp"
-        android:text="Book" />
+        android:layout_marginBottom="117dp"
+        android:text="Book Now"
+        android:textSize="20dp" />
 
     <Spinner
         android:id="@+id/spinnerTime"
@@ -23,9 +34,54 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="74dp"
-        android:layout_marginBottom="231dp"
+        android:layout_marginBottom="218dp"
         android:entries="@array/Time"
         android:minHeight="48dp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="289dp"
+        android:text="Time:"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/buttonDate"
+        android:onClick="openDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:text="01-JAN-2022"
+        android:textSize="22dp"
+        />
+
+    <Button
+        android:id="@+id/buttonAppMade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="19dp"
+        android:text="Appointments Made"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/textDrName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="138dp"
+        android:text="Doctors Name"
+        android:textSize="30dp" />
 
 </RelativeLayout>

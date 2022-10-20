@@ -6,9 +6,18 @@ public class appointmentDomain {
     public appointmentDomain() {
     }
 
-    public appointmentDomain(String id , String time) {
+    public appointmentDomain(String id, String date, String time) {
         Time = time;
+        Date = date;
         this.id = id;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
     }
 
     public String getTime() {
@@ -29,8 +38,9 @@ public class appointmentDomain {
 
     @Override
     public String toString() {
-        return "Helper{" +
+        return "appointmentDomain{" +
                 "Time='" + Time + '\'' +
+                ", Date='" + Date + '\'' +
                 ", id='" + id + '\'' +
                 '}';
     }
