@@ -15,7 +15,7 @@
         android:layout_marginTop="231dp"
         android:text="Date:"
         android:textSize="30dp" />
-
+ 
     <Button
         android:id="@+id/buttonBook"
         android:layout_width="wrap_content"

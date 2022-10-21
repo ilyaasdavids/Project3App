@@ -13,7 +13,7 @@ public class appointmentDomain {
         PatientId = patientId;
         AppId = appId;
     }
-
+//
     public String getDate() {
         return Date;
     }

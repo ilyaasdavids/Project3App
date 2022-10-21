@@ -34,7 +34,7 @@ public class appointmentAdapter extends RecyclerView.Adapter<appointmentAdapter.
         holder.str_date.setText(domain.getDate());
         holder.str_time.setText(domain.getTime());
     }
-
+//
     @Override
     public int getItemCount() {
         return list.size();

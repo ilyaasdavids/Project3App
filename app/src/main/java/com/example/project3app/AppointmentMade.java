@@ -49,7 +49,7 @@ public class AppointmentMade extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
             }
-
+//
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
