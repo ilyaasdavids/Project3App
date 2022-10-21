@@ -71,7 +71,7 @@
         android:layout_marginTop="66dp"
         android:layout_marginEnd="19dp"
         android:text="Appointments Made"
-        android:textSize="15dp"/>
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/textDrName"

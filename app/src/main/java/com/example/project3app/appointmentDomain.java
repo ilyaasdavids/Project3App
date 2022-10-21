@@ -1,15 +1,17 @@
 package com.example.project3app;
 
 public class appointmentDomain {
-    private String Time,Date,id;
+    private String Time,Date,PatientId ,DrId ;
+    private String AppId;
 
     public appointmentDomain() {
     }
 
-    public appointmentDomain(String id, String date, String time) {
+    public appointmentDomain(String appId ,String patientId, String date,String time) {
         Time = time;
         Date = date;
-        this.id = id;
+        PatientId = patientId;
+        AppId = appId;
     }
 
     public String getDate() {
@@ -28,12 +30,20 @@ public class appointmentDomain {
         Time = time;
     }
 
-    public String getId() {
-        return id;
+    public String getPatientId() {
+        return PatientId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPatientId(String patientId) {
+        PatientId = patientId;
+    }
+
+    public String getAppId() {
+        return AppId;
+    }
+
+    public void setAppId(String appId) {
+        AppId = appId;
     }
 
     @Override
@@ -41,7 +51,8 @@ public class appointmentDomain {
         return "appointmentDomain{" +
                 "Time='" + Time + '\'' +
                 ", Date='" + Date + '\'' +
-                ", id='" + id + '\'' +
+                ", PatientId='" + PatientId + '\'' +
+                ", AppId=" + AppId +
                 '}';
     }
 }

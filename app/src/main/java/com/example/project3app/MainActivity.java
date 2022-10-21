@@ -1,27 +1,35 @@
 package com.example.project3app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private String date;
-
+    Long appId = Long.valueOf(0);
     appointmentDomain appointmentDomain;
 
-    Button btnBook,btnDate;
+    Button btnBook,btnDate,btnAppMade;
     Spinner spnTime;
 
     FirebaseDatabase rootNode;
@@ -38,23 +46,58 @@ public class MainActivity extends AppCompatActivity {
         btnDate = findViewById(R.id.buttonDate);
         btnDate.setText(getTodaysDate());
 
+        btnAppMade = findViewById(R.id.buttonAppMade);
+        btnAppMade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAppMade();
+            }
+        });
+
         btnBook = findViewById(R.id.buttonBook);
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("Appointments");
+                reference = rootNode.getReference().child("Appointments");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists())
+                            appId = (snapshot.getChildrenCount()
+                            );
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
                 String time = spnTime.getSelectedItem().toString();
-                String id = "24";
+                String patientId = "0010125038456";
+                appId = ++appId;
                 String date = btnDate.getText().toString();
 
-                appointmentDomain = new appointmentDomain(id,date,time);
+                appointmentDomain = new appointmentDomain(String.valueOf(appId),patientId,date,time);
 
-                reference.child(id).setValue(appointmentDomain);
+                reference.child(String.valueOf(appId)).setValue(appointmentDomain).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(MainActivity.this,"Your appointment has been booked",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
                 System.out.println("Entering values...");
             }
         });
+    }
+
+    private void openAppMade() {
+        Intent intent = new Intent(this, AppointmentMade.class);
+        startActivity(intent);
     }
 
     private void initDatePicker() {

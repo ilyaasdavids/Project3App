@@ -2,18 +2,18 @@
     <string name="app_name">Project3App</string>
 
     <string-array name="Time">
-        <item>08:30</item>
-        <item>09:00</item>
-        <item>09:30</item>
-        <item>10:00</item>
-        <item>10:30</item>
-        <item>11:00</item>
-        <item>11:30</item>
-        <item>12:00</item>
-        <item>12:30</item>
-        <item>14:00</item>
-        <item>14:30</item>
-        <item>15:00</item>
+        <item>08:30 AM</item>
+        <item>09:00 AM</item>
+        <item>09:30 AM</item>
+        <item>10:00 AM</item>
+        <item>10:30 AM</item>
+        <item>11:00 AM</item>
+        <item>11:30 AM</item>
+        <item>12:00 PM</item>
+        <item>12:30 PM</item>
+        <item>14:00 PM</item>
+        <item>14:30 PM</item>
+        <item>15:00 PM</item>
     </string-array>
 
 </resources>
