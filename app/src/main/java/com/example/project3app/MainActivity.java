@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,10 +37,19 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
+
+    //Firebase Authentication
+    FirebaseAuth fAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //FIREBASE
+        fAuth = FirebaseAuth.getInstance();
+        //
 
         spnTime = findViewById(R.id.spinnerTime);
 
@@ -93,6 +104,16 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Entering values...");
             }
         });
+    }
+
+    //FOR FIREBASE
+    @Override
+    protected void onStart(){
+        super.onStart();
+        FirebaseUser user = fAuth.getCurrentUser();
+        if (user == null) {
+            startActivity(new Intent(MainActivity.this, Login.class));
+        }
     }
 
     private void openAppMade() {
