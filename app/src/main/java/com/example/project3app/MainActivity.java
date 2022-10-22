@@ -111,9 +111,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         FirebaseUser user = fAuth.getCurrentUser();
-        if (user == null) {
+
             startActivity(new Intent(MainActivity.this, Login.class));
-        }
+
     }
 
     private void openAppMade() {

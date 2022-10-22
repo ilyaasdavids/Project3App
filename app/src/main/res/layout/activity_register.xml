@@ -64,6 +64,23 @@
         </EditText>
 
         <EditText
+            android:id="@+id/num"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/textbox"
+            android:drawableLeft="@drawable/ic_baseline_phone_android_24"
+            android:drawablePadding="15dp"
+            android:hint="Cellphone Number"
+            android:inputType="phone"
+            android:padding="15dp"
+            android:textColor="@color/white"
+            android:textColorHint="#E5E6E4">
+
+
+        </EditText>
+
+        <EditText
             android:id="@+id/Pass"
             android:layout_width="300dp"
             android:layout_height="60dp"
@@ -76,23 +93,6 @@
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="#E5E6E4">
-
-        </EditText>
-
-        <EditText
-            android:id="@+id/ConfirmPass"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/textbox"
-            android:drawableLeft="@drawable/ic_baseline_lock_24"
-            android:drawablePadding="15dp"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:textColor="@color/white"
-            android:textColorHint="#E5E6E4">
-
         </EditText>
 
 

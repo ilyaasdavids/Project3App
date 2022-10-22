@@ -17,15 +17,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
     TextView btn;
     Button btnLogin;
-    EditText email;
+    EditText name;
     EditText pass;
 
-    FirebaseAuth mAuth;
+//    FirebaseAuth mAuth;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +42,19 @@ public class Login extends AppCompatActivity {
 
         btn = findViewById(R.id.btn);
         btnLogin = findViewById(R.id.btnLogin);
-        email = findViewById(R.id.email);
+        name = findViewById(R.id.Name);
         pass = findViewById(R.id.Password);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
 
         btnLogin.setOnClickListener(view -> {
+
+            rootNode = FirebaseDatabase.getInstance();
+            reference = rootNode.getReference("users");
+
             loginUser();
         });
         btn.setOnClickListener(view -> {
@@ -51,17 +63,12 @@ public class Login extends AppCompatActivity {
         });
     }
     private void loginUser(){
-        String userEmail = email.getText().toString().trim();
+        String userName = name.getText().toString().trim();
         String password = pass.getText().toString().trim();
 
-        if(userEmail.isEmpty()){
-            email.setError("Email is required!");
-            email.requestFocus();
-            return;
-        }
-        if(!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()){
-            email.setError("Please enter a valid email!");
-            email.requestFocus();
+        if(userName.isEmpty()){
+            name.setError("Name is required!");
+            name.requestFocus();
             return;
         }
 
@@ -77,18 +84,57 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(userEmail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        //Validate login info
+
+       // DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+
+        Query checkUser = reference.orderByChild("name").equalTo(password);
+
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    //goes to next page?
-                    startActivity(new Intent (Login.this, MainActivity.class));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()){
+
+                    User passwordFromDB = dataSnapshot.child(userName).child("password").getValue(User.class);
+
+                    if(passwordFromDB.equals(password)){
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+
+                    }else{
+                        pass.setError("Password is incorrect!");
+                        name.requestFocus();
+                        return;
+                    }
 
                 }else{
-                    Toast.makeText(Login.this, "Failed to login, Please check credentials", Toast.LENGTH_LONG).show();
+                    name.setError("This username does not exist!");
+                    name.requestFocus();
+                    return;
+
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
+
+//        mAuth.signInWithEmailAndPassword(userEmail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if(task.isSuccessful()){
+//                    //goes to next page?
+//                    startActivity(new Intent (Login.this, MainActivity.class));
+//
+//                }else{
+//                    Toast.makeText(Login.this, "Failed to login, Please check credentials", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
 
 
 

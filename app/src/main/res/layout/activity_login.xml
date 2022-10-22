@@ -35,18 +35,17 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/Name"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:background="@drawable/textbox"
-            android:drawableLeft="@drawable/ic_baseline_email_24"
+            android:drawableLeft="@drawable/ic_baseline_person_24"
             android:drawablePadding="15dp"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
+            android:hint="Username"
+            android:inputType="textPersonName"
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="#E5E6E4">
-
         </EditText>
 
 
