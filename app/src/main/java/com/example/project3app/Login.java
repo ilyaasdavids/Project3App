@@ -35,6 +35,9 @@ public class Login extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
+    String passwordFromDatabase;
+    String usernameFromDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,31 +91,48 @@ public class Login extends AppCompatActivity {
 
        // DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
 
-        Query checkUser = reference.orderByChild("name").equalTo(password);
+       // Query checkUser = reference.orderByChild("name").equalTo(password);
 
-        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(dataSnapshot.exists()){
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    passwordFromDatabase = dataSnapshot.child("password").getValue().toString();
+                    usernameFromDatabase = dataSnapshot.child("name").getValue().toString();
 
-                    User passwordFromDB = dataSnapshot.child(userName).child("password").getValue(User.class);
-
-                    if(passwordFromDB.equals(password)){
-
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-
-                    }else{
-                        pass.setError("Password is incorrect!");
-                        name.requestFocus();
-                        return;
-                    }
-
-                }else{
-                    name.setError("This username does not exist!");
-                    name.requestFocus();
+                    if(passwordFromDatabase.equals(password) && usernameFromDatabase.equals(userName)){
+                        //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                       //startActivity(intent);
+                        startActivity(new Intent(Login.this, Register.class));
+                        System.out.println("");
+                }
+                    else  pass.setError("Password is incorrect");
+                    pass.requestFocus();
                     return;
+
+
+//                if(snapshot.exists()){
+//
+//
+//                    String passwordFromDB = snapshot.child(userName).child("password").getValue(String.class);
+//
+//                    if(passwordFromDB.equals(password)){
+//
+//                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(intent);
+//
+//                    }else{
+//                        pass.setError("Password is incorrect!");
+//                        name.requestFocus();
+//                        return;
+//                    }
+//
+//                }else{
+//                    name.setError("This username does not exist!");
+//                    name.requestFocus();
+//                    return;
 
                 }
             }
