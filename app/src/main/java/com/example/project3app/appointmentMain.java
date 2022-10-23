@@ -3,20 +3,16 @@ package com.example.project3app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.CalendarView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,37 +21,43 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class appointmentMain extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
-    private String date;
+    private String date ,validDate ,validTime , time ,error;
+    private boolean isSuccess;
     Long appId = Long.valueOf(0);
     appointmentDomain appointmentDomain;
 
     Button btnBook,btnDate,btnAppMade;
     Spinner spnTime;
+
+    TextView txtDate;
+    CalendarView calendarView;
 //
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
-
-    //Firebase Authentication
-    FirebaseAuth fAuth;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        //FIREBASE
-        fAuth = FirebaseAuth.getInstance();
-        //
+        setContentView(R.layout.appointment_main);
 
         spnTime = findViewById(R.id.spinnerTime);
 
-        initDatePicker();
-        btnDate = findViewById(R.id.buttonDate);
-        btnDate.setText(getTodaysDate());
+        txtDate = findViewById(R.id.textViewDate);
+        txtDate.setText(getTodaysDate());
+
+        calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarView.setDate(getMiliTime(),false,true);
+        calendarView.setMinDate(getMiliTime()-1000);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
+                month++;
+                date = makeDateString(day,month,year);
+                txtDate.setText(date);
+            }
+        });
 
         btnAppMade = findViewById(R.id.buttonAppMade);
         btnAppMade.setOnClickListener(new View.OnClickListener() {
@@ -69,15 +71,30 @@ public class MainActivity extends AppCompatActivity {
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference().child("Appointments");
+
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                         if (snapshot.exists())
-                            appId = (snapshot.getChildrenCount()
-                            );
-                    }
+                            appId = (snapshot.getChildrenCount());
+
+                        for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                            validTime = dataSnapshot.child("time").getValue().toString();
+                            validDate = dataSnapshot.child("date").getValue().toString();
+
+                            if (validTime.equals(spnTime.getSelectedItem()) && validDate.equals(txtDate.getText())){
+                                isSuccess = false;
+                                Toast.makeText(appointmentMain.this, "DATE and TIME has been reserved already", Toast.LENGTH_SHORT).show();
+                                break;
+                            }else{
+                                isSuccess = true;
+                                Toast.makeText(appointmentMain.this, "Your appointment has been booked", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -104,16 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Entering values...");
             }
         });
-    }
-
-    //FOR FIREBASE
-    @Override
-    protected void onStart(){
-        super.onStart();
-        FirebaseUser user = fAuth.getCurrentUser();
-
-            startActivity(new Intent(MainActivity.this, Login.class));
-
     }
 
     private void openAppMade() {
