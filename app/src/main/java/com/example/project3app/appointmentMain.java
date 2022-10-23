@@ -93,6 +93,7 @@ public class appointmentMain extends AppCompatActivity {
                             }else{
                                 isSuccess = true;
                                 Toast.makeText(appointmentMain.this, "Your appointment has been booked", Toast.LENGTH_SHORT).show();
+                                break;
                             }
                         }
 
