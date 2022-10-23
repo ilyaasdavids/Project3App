@@ -33,7 +33,7 @@ public class appointmentMain extends AppCompatActivity {
 
     TextView txtDate;
     CalendarView calendarView;
-//
+    //
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
@@ -74,7 +74,7 @@ public class appointmentMain extends AppCompatActivity {
 
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference().child("Appointments");
-                
+
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -93,6 +93,7 @@ public class appointmentMain extends AppCompatActivity {
                             }else{
                                 isSuccess = true;
                                 Toast.makeText(appointmentMain.this, "Your appointment has been booked", Toast.LENGTH_SHORT).show();
+                                break;
                             }
                         }
 
