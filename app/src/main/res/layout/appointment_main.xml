@@ -1,11 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".appointmentMain">
+    tools:context=".appointmentMain"
+    android:background="@color/white">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnBack1"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/black"
+                android:text="Back"
+                android:textColor="#ff5e00"
+                app:icon="?attr/actionModeCloseDrawable" />
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="280dp"
+                android:layout_marginTop="-50dp"
+                android:backgroundTint="@color/black"
+                android:drawableRight="@drawable/ic_baseline_arrow_forward_24"
+                android:text="Next"
+                android:textColor="#ff5e00" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
     <TextView
         android:id="@+id/textDate"
         android:layout_width="wrap_content"
@@ -18,15 +54,15 @@
         android:textSize="30dp" />
 
     <!--    <Button-->
-<!--        android:id="@+id/buttonDate"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_marginTop="300dp"-->
-<!--        android:onClick="openDatePicker"-->
-<!--        android:text="01-JAN-2022"-->
-<!--        android:textSize="22dp" />-->
+    <!--        android:id="@+id/buttonDate"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentTop="true"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginTop="300dp"-->
+    <!--        android:onClick="openDatePicker"-->
+    <!--        android:text="01-JAN-2022"-->
+    <!--        android:textSize="22dp" />-->
 
     <Button
         android:id="@+id/buttonBook"
@@ -35,8 +71,24 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="97dp"
+        android:backgroundTint="@color/black"
         android:text="Book Now"
-        android:textSize="20dp" />
+        android:textColor="#ff5e00"
+        />
+
+    <Button
+        android:id="@+id/buttonAppMade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonBook"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="570dp"
+        android:layout_marginEnd="90dp"
+        android:backgroundTint="@color/black"
+        android:text="Appointments Made"
+        android:textColor="#ff5e00"
+        />
 
     <Spinner
         android:id="@+id/spinnerTime"
@@ -62,16 +114,6 @@
         android:text="Time:"
         android:textSize="30dp" />
 
-    <Button
-        android:id="@+id/buttonAppMade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="5dp"
-        android:text="Appointments Made"
-        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/textDrName"
