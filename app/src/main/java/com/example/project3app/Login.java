@@ -102,20 +102,24 @@ public class Login extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
+
                     passwordFromDatabase = dataSnapshot.child("password").getValue().toString();
                     usernameFromDatabase = dataSnapshot.child("name").getValue().toString();
 
                     if(passwordFromDatabase.equals(password) && usernameFromDatabase.equals(userName)){
-                        //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                       //startActivity(intent);
+
                         startActivity(new Intent(Login.this, appointmentMain.class));
-                        System.out.println("");
+                        break;
+
+                }   else {
+                        Toast.makeText(Login.this, "Username or Password is incorrect", Toast.LENGTH_SHORT).show();
+//                        pass.setError("Username or Password is incorrect");
+//                        pass.requestFocus();
+//                        return;
+                    }
+
                 }
-                    else  pass.setError("Password is incorrect");
-                    pass.requestFocus();
-                    return;
-
-
+            }
 //                if(snapshot.exists()){
 //
 //
@@ -137,8 +141,7 @@ public class Login extends AppCompatActivity {
 //                    name.requestFocus();
 //                    return;
 
-                }
-            }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
