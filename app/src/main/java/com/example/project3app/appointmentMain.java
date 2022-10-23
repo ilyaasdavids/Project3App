@@ -13,21 +13,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class appointmentMain extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private String date ,validDate ,validTime , time ,error;
     private boolean isSuccess;
@@ -46,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.appointment_main);
 
         spnTime = findViewById(R.id.spinnerTime);
 
@@ -94,11 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
                             if (validTime.equals(spnTime.getSelectedItem()) && validDate.equals(txtDate.getText())){
                                 isSuccess = false;
-                                Toast.makeText(MainActivity.this, "DATE and TIME has been reserved already", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(appointmentMain.this, "DATE and TIME has been reserved already", Toast.LENGTH_SHORT).show();
                                 break;
                             }else{
                                 isSuccess = true;
-                                Toast.makeText(MainActivity.this, "Your appointment has been booked", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(appointmentMain.this, "Your appointment has been booked", Toast.LENGTH_SHORT).show();
                             }
                         }
 
