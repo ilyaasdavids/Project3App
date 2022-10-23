@@ -33,7 +33,7 @@ public class appointmentMain extends AppCompatActivity {
 
     TextView txtDate;
     CalendarView calendarView;
-//
+    //
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
@@ -96,57 +96,51 @@ public class appointmentMain extends AppCompatActivity {
                             }
                         }
 
+
+
+                    }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });
 
+                if(isSuccess) {
+                    time = spnTime.getSelectedItem().toString();
+                    String patientId = "0010125038456";
+                    appId = ++appId;
+                    String date = txtDate.getText().toString();
 
-                String time = spnTime.getSelectedItem().toString();
-                String patientId = "0010125038456";
-                appId = ++appId;
-                String date = btnDate.getText().toString();
+                    appointmentDomain = new appointmentDomain(String.valueOf(appId), patientId, date, time);
+                    reference.child(String.valueOf(appId)).setValue(appointmentDomain);
+                }
 
-                appointmentDomain = new appointmentDomain(String.valueOf(appId),patientId,date,time);
-
-                reference.child(String.valueOf(appId)).setValue(appointmentDomain).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(MainActivity.this,"Your appointment has been booked",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
                 System.out.println("Entering values...");
+
             }
         });
+    }
+
+    private long getMiliTime() {
+        String date = setCalendarDate();
+        String parts[] = date.split("/");
+
+        int day = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int year = Integer.parseInt(parts[2]);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR,year);
+        calendar.set(Calendar.MONTH,month);
+        calendar.set(Calendar.DAY_OF_MONTH,day);
+
+        long miliTime = calendar.getTimeInMillis();
+        return miliTime;
     }
 
     private void openAppMade() {
         Intent intent = new Intent(this, AppointmentMade.class);
         startActivity(intent);
-    }
-
-    private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                month++;
-                date = makeDateString(day,month,year);
-                btnDate.setText(date);
-            }
-
-        };
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
-
-
-        int style = AlertDialog.THEME_HOLO_LIGHT;
-
-        datePickerDialog = new DatePickerDialog(this,style,dateSetListener,year,month,day);
     }
 
     private String getTodaysDate() {
@@ -155,11 +149,25 @@ public class appointmentMain extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         month++;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+        day += 7;
         return makeDateString(day,month,year);
+    }
+
+    private String setCalendarDate() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        day += 7;
+        return calendarViewDate(day,month,year);
     }
 
     private String makeDateString(int day, int month, int year) {
         return day + "-" + getMonthFormat(month) + "-" + year ;
+    }
+
+    private String calendarViewDate(int day, int month, int year) {
+        return day + "/" + month + "/" + year ;
     }
 
     private String getMonthFormat(int month) {

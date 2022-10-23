@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ilyaas Davids/AndroidStudioProjects/Project3App/app/src/main/res/drawable/bg_calendar.xml" value="0.196" />
         <entry key="..\:/Users/Ilyaas Davids/AndroidStudioProjects/Project3App/app/src/main/res/layout/activity_appointment_made.xml" value="0.21041666666666667" />
         <entry key="..\:/Users/Ilyaas Davids/AndroidStudioProjects/Project3App/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Ilyaas Davids/AndroidStudioProjects/Project3App/app/src/main/res/layout/app_entry.xml" value="0.22447916666666667" />
@@ -15,6 +14,7 @@
         <entry key="..\:/Users/Zaeem/Desktop/project 3/firebase forked (work on this one)/Project3AppFirebase/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Zaeem/Desktop/project 3/firebase forked (work on this one)/Project3AppFirebase/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Zaeem/Desktop/project 3/firebase forked (work on this one)/Project3AppFirebase/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Users/Zaeem/Desktop/project 3/firebase forked (work on this one)/Project3AppFirebase/app/src/main/res/layout/appointment_main.xml" value="0.358695652173913" />
       </map>
     </option>
   </component>

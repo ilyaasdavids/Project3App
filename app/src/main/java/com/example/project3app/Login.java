@@ -55,8 +55,7 @@ public class Login extends AppCompatActivity {
 
         btnLogin.setOnClickListener(view -> {
 
-            rootNode = FirebaseDatabase.getInstance();
-            reference = rootNode.getReference("users");
+
 
             loginUser();
         });
@@ -66,6 +65,10 @@ public class Login extends AppCompatActivity {
         });
     }
     private void loginUser(){
+
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("users");
+
         String userName = name.getText().toString().trim();
         String password = pass.getText().toString().trim();
 
@@ -94,7 +97,7 @@ public class Login extends AppCompatActivity {
        // Query checkUser = reference.orderByChild("name").equalTo(password);
 
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -105,7 +108,7 @@ public class Login extends AppCompatActivity {
                     if(passwordFromDatabase.equals(password) && usernameFromDatabase.equals(userName)){
                         //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                        //startActivity(intent);
-                        startActivity(new Intent(Login.this, Register.class));
+                        startActivity(new Intent(Login.this, appointmentMain.class));
                         System.out.println("");
                 }
                     else  pass.setError("Password is incorrect");
